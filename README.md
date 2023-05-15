@@ -1,5 +1,5 @@
 # 카페 매출 관리 프로그램
-----------------
+-----------------
 
 ![image](https://user-images.githubusercontent.com/130723495/236805079-2fcd034b-245a-457c-962a-862834c2d8b7.png)
 
