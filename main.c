@@ -99,6 +99,14 @@ int main() {
   int update_num; // 뭘 고칠지 입력받을때 쓰는 용도
   int sum = 0 ;// 이게 총매출
 
+int yesterdaysum;// 전날 매출
+
+  yesterdaysum = lodeyester();
+  menucount=lodefile(b);
+
+  if(yesterdaysum>=0) printf("전날 매출은 %d원 입니다.\n",yesterdaysum);
+  else printf("전날 매출의 기록이 없습니다.\n");
+
   while (1) {
     select = selectMenu();
     if (select == 0)
@@ -165,6 +173,9 @@ int main() {
     }
   }
   
+  savefile(b, menucount); 
+  saveyester(sum);
+  printf("메뉴와 오늘의 매출을 파일에 저장했습니다!");
   return 0;
 }
 
@@ -297,4 +308,54 @@ void savefile(menu* s[],int num){//파일에 정보 저장하기
     fclose(fp);
     printf("파일에 정보가 저장됨!\n");
     return;
+}
+
+void savefile(menu* s[],int num){//파일에 정보 저장하기
+    FILE *fp = fopen("menu.txt","w");
+    for(int i=0;i<num;i++){
+      if(s[i]->no==-1) continue;
+      else
+        fprintf(fp,"%d %s %d %d\n",i,s[i]->name,s[i]->price,s[i]->type);
+    }
+    fclose(fp);
+    printf("파일에 메뉴정보가 저장됨!\n");
+    return;
+}
+
+int lodefile(menu* s[]){
+    int count=0;
+    FILE *fp = fopen("menu.txt","r");
+    while(!feof(fp)){
+      s[count]=(menu*) malloc(sizeof(menu));
+        fscanf(fp,"%d",&s[count]->no);
+        fscanf(fp,"%s",s[count]->name);
+        fscanf(fp,"%d",&s[count]->price);
+        fscanf(fp,"%d",&s[count]->type);
+      count++;
+    }
+  if(s[count-1]->price==0) {
+    free(s[count-1]);
+    count=count-1;
+    }
+
+    fclose(fp);
+    if(count==0) printf("=> 파일 없음.\n");
+    else printf("=> 로딩 성공!\n");
+    return count;
+}
+
+void saveyester(int num){
+    FILE *fp = fopen("score.txt","w");
+    fprintf(fp,"%d",num);  
+    fclose(fp);
+    printf("파일에 오늘의 매출이 저장됨!\n");
+    return;
+}
+
+int lodeyester(){
+  int count=0;
+  FILE *fp = fopen("score.txt","r");
+  fscanf(fp, "%d", &count);
+  fclose(fp);
+    return count;
 }
