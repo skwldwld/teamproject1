@@ -142,7 +142,9 @@ int main() {
 
     else if (select == 6) { // 6. 주문 취소
       print_menu(b, menucount);
+
       printf("\n");
+
       sum -= del_order(o, ordercount);
     }
 
@@ -284,7 +286,6 @@ void print_order(order *s[], int num) { // 7. 주문 리스트 나열
 void print_totalsales(int sum) { // 8. 총매출 계산
   printf("오늘 하루 매출은 %d 원입니다.\n", sum);
 }
-
 
 void savefile(m* s[],int num){//파일에 정보 저장하기
     FILE *fp = fopen("menu.txt","w");
