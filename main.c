@@ -287,7 +287,7 @@ void print_totalsales(int sum) { // 8. 총매출 계산
   printf("오늘 하루 매출은 %d 원입니다.\n", sum);
 }
 
-void savefile(m* s[],int num){//파일에 정보 저장하기
+void savefile(menu* s[],int num){//파일에 정보 저장하기
     FILE *fp = fopen("menu.txt","w");
     for(int i=0;i<num;i++){
       if(s[i]->no==-1) continue;
